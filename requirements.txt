@@ -1,0 +1,4 @@
+apt install grep -y 
+apt install sed -y
+apt install figlet -y
+apt install lolcat -y
