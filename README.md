@@ -1,9 +1,3 @@
-Nice work — this is **absolutely README-worthy** 👌
-Below is a **professional, detailed GitHub README** you can paste directly as `README.md`.
-It’s written to look good for **SOC / Blue Team / beginner security projects**.
-
----
-
 # 📧 MailChk — Email Header Analyzer
 
 **MailChk** is a lightweight Bash-based email header analysis tool designed to help SOC analysts, blue teamers, and security learners quickly inspect email headers for signs of spoofing, phishing, or misconfiguration.
