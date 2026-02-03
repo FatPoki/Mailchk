@@ -1,4 +1,5 @@
-apt install grep -y 
-apt install sed -y
-apt install figlet -y
-apt install lolcat -y
+sudo apt install grep -y 
+sudo apt install sed -y
+sudo apt install figlet -y
+sudo apt install lolcat -y
+sudo apt install pv -y
