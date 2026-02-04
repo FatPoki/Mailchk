@@ -1,159 +1,165 @@
-# 📧 MailChk — Email Header Analyzer
+# MailChk – Email Header Analyzer
 
-**MailChk** is a lightweight Bash-based email header analysis tool designed to help SOC analysts, blue teamers, and security learners quickly inspect email headers for signs of spoofing, phishing, or misconfiguration.
+MailChk is a lightweight Bash-based email header analysis tool designed for SOC analysts, incident responders, and blue teamers. It helps quickly extract and review key email header information and authentication results from suspicious email files, reducing manual effort during investigations.
 
-It parses common email authentication mechanisms such as **SPF, DKIM, and DMARC**, extracts key header information, and provides a clear verdict on whether an email looks safe or suspicious.
+The tool supports common email file formats and provides optional attachment extraction with hash calculation to assist in malware and phishing analysis workflows.
 
 ---
 
-## 🚀 Features
+## Features
 
-* 📬 Extracts key email headers:
+* Supports `.eml`, `.msg`, and `.emlx` email files
+* Extracts key header details:
 
-  * Sender (`From`)
-  * Receiver (`To`)
+  * Sender
+  * Receiver
   * Return-Path
   * Sender IP address
-* 🔐 Analyzes email authentication:
+* Analyzes email authentication results:
 
   * SPF
   * DKIM
   * DMARC
-* 🧠 Detects mixed or forwarded authentication states
-* 🎯 Provides a final **ARC-style authentication verdict**
-* 🖥️ Terminal-friendly with colored output and banners
-* ⚡ Fast analysis using standard Linux utilities
+  * ARC-style pass/fail summary
+* Optional attachment handling:
+
+  * Extracts attachments safely using `ripmime`
+  * Calculates SHA256 and MD5 hashes
+  * Prevents duplicate extractions for the same email
+* Clean, terminal-friendly output for fast triage
 
 ---
 
-## 📂 Supported File Types
+## Directory Structure
 
-MailChk supports the following email formats:
-
-* `.eml`
-* `.msg`
-* `.emlx`
-
----
-
-## 🛠️ Requirements
-
-The following tools must be installed on your system:
-
-* `bash`
-* `grep`
-* `sed`
-* `cut`
-* `pv`
-* `figlet`
-* `lolcat`
-
-### Install dependencies (Debian/Ubuntu)
-
-```bash
-sudo apt install pv figlet lolcat
+```
+mailchk/
+├── mailchk.sh   # Main email analysis script
+├── setup.sh     # Dependency setup script
 ```
 
-> Note: Core utilities like `grep`, `sed`, and `cut` are usually preinstalled.
+---
+
+## Requirements
+
+The following tools must be installed on the system:
+
+* bash (v4+ recommended)
+* ripmime
+* grep, sed, cut, tr (coreutils)
+* sha256sum, md5sum
+* figlet (optional, for banner display)
+* lolcat (optional, for colored output)
+* pv (optional, for animated text output)
+
+You can install most dependencies on Debian/Ubuntu-based systems using:
+
+```
+sudo apt update
+sudo apt install ripmime figlet lolcat pv coreutils
+```
+
+Alternatively, use the provided setup script.
 
 ---
 
-## 📦 Installation
+## Setup
 
-Clone the repository and make the script executable:
+1. Clone the repository:
 
-```bash
-git clone https://github.com/yourusername/mailchk.git
+```
+git clone https://github.com/<your-username>/mailchk.git
 cd mailchk
-chmod +x mailchk.sh
 ```
 
-(Optional) Move it to your PATH:
+2. Make scripts executable:
 
-```bash
-sudo mv mailchk.sh /usr/local/bin/mailchk
+```
+chmod +x mailchk.sh setup.sh
+```
+
+3. (Optional) Run the setup script to install dependencies:
+
+```
+./setup.sh
 ```
 
 ---
 
-## ▶️ Usage
+## Usage
 
-```bash
-mailchk.sh <email_file>
+Basic usage:
+
 ```
-
-### Example
-
-```bash
 ./mailchk.sh suspicious.eml
 ```
 
----
+Help menu:
 
-## ❓ Help Menu
-
-```bash
+```
 ./mailchk.sh -h
 ```
 
-Displays usage instructions, description, and examples.
+---
+
+## What the Tool Does
+
+1. Validates the input email file
+2. Extracts and displays header information
+3. Parses SPF, DKIM, and DMARC authentication results
+4. Provides a high-level verdict on email authenticity
+5. Optionally:
+
+   * Extracts attachments
+   * Generates SHA256 and MD5 hashes
+   * Saves attachments for personal offline analysis
 
 ---
 
-## 📊 Output Overview
+## Attachment Analysis Notes
 
-MailChk provides:
+* Attachments are extracted using `ripmime` (no execution involved)
+* Hashes can be used with external reputation services such as:
 
-* Parsed email header details
-* Individual results for:
-
-  * SPF
-  * DKIM
-  * DMARC
-* Clear indicators for:
-
-  * Forwarded emails
-  * Mixed authentication states
-* Final verdict:
-
-  * ✅ **Mail looks safe**
-  * ⚠️ **Mail looks suspicious**
+  * VirusTotal
+  * Hybrid Analysis
+  * MalwareBazaar
+* API integration is intentionally avoided to keep the tool lightweight and offline-friendly
 
 ---
 
-## 🧪 Example Verdict
+## Use Cases
 
-```text
-ARC authentication passed. Mail looks safe.
-```
-
-or
-
-```text
-ARC authentication failed. Mail looks suspicious.
-```
+* Phishing email triage
+* SOC Level 1 / Level 2 investigations
+* Email spoofing analysis
+* DFIR email artifact review
+* Learning and practicing email header analysis
 
 ---
 
-## ⚠️ Limitations
+## Limitations
 
-* Header-based analysis only (no attachment or body inspection)
-* Does not validate cryptographic DKIM signatures
-* Best used as a **triage tool**, not a full forensic solution
-
----
-
-## 🎯 Use Cases
-
-* SOC Tier 1 / Tier 2 email triage
-* Phishing investigation practice
-* Blue team labs and learning
-* Email header analysis automation
+* Authentication results depend on what is present in the email headers
+* Does not replace full email gateway or sandbox analysis
+* Results should always be correlated with other tools and context
 
 ---
 
+## Disclaimer
 
-## 👤 Author
+This tool is intended for defensive security, educational, and investigative purposes only. Results are indicative and should not be relied upon as the sole decision-making factor.
 
-**Anoop Sharma**
-Cybersecurity | SOC | Blue Team Enthusiast
+---
+
+## License
+
+MIT License
+
+---
+
+## Author
+
+Developed by Anoop Sharma
+
+Contributions, issues, and feature requests are welcome.
