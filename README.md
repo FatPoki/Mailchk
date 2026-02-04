@@ -102,7 +102,14 @@ Help menu:
 ---
 #DEMO 
 
-https://github.com/user-attachments/assets/e7def2b6-e58e-4c0c-b6b5-8b64067fb076
+<video
+  src="https://github.com/user-attachments/assets/e7def2b6-e58e-4c0c-b6b5-8b64067fb076"
+  autoplay
+  loop
+  muted
+  playsinline
+  width="800">
+</video>
 
 ---
 
