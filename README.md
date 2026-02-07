@@ -68,7 +68,7 @@ Alternatively, use the provided setup script.
 1. Clone the repository:
 
 ```
-git clone https://github.com/<your-username>/mailchk.git
+git clone https://github.com/fatpoki/mailchk.git
 cd mailchk
 ```
 
